@@ -5,8 +5,8 @@ pipeline {
         stage('Build Step') {
             steps {
                 sh """
-                   docker build . -t gcr.io/proud-gate-400110//demo:$BUILD_NUMBER
-                   docker push gcr.io/proud-gate-400110//demo:$BUILD_NUMBER
+                   docker build . -t gcr.io/proud-gate-400110/demo:$BUILD_NUMBER
+                   docker push gcr.io/proud-gate-400110/demo:$BUILD_NUMBER
                    
                    """
             }
