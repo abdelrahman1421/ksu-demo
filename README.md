@@ -1,3 +1,1 @@
 # ksu-demo
-test
-
