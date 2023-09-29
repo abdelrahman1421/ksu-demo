@@ -2,9 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Step') {
             steps {
-                echo 'Building..'
+                sh """
+                   echo $BUILD_NUMBER
+                   
+                   """
             }
         }
         stage('Test') {
