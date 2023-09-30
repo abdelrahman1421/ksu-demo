@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: node
+  name: node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      # - image: engboda/node:${NUMBER}
+      - image: gcr.io/proud-gate-400110/node:${NUMBER} # for demo
+        name: node
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources: {}

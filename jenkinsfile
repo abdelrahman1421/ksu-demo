@@ -2,24 +2,37 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Step') {
+        stage('Build Docker Image') {
             steps {
-                sh """
-                
-                   docker build . -t gcr.io/proud-gate-400110/demo:$BUILD_NUMBER
-                   docker push gcr.io/proud-gate-400110/demo:$BUILD_NUMBER
-                   
-                   """
+                script{
+                    sh """
+                     docker build -f Dockerfile . -t gcr.io/proud-gate-400110/node:${BUILD_NUMBER}
+                     docker push gcr.io/proud-gate-400110/node:${BUILD_NUMBER}
+                     echo ${BUILD_NUMBER} > ../vars.txt 
+
+                     """ 
+              } 
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
+        
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                script {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'FILE')]) {
+
+                    sh """
+
+                     export NUMBER=\$(cat ../vars.txt)
+                     cp Deployment/deploy.yaml Deployment/deploy.yaml.tmp
+                     cat Deployment/deploy.yaml.tmp | envsubst > Deployment/deploy.yaml
+                     rm -f Deployment/deploy.yaml.tmp
+                     kubectl apply -f Deployment/deploy.yaml --kubeconfig=${FILE}
+                     kubectl apply -f Deployment/service.yaml --kubeconfig=${FILE}
+
+                     """
+                    
+                }
+              }
             }
         }
     }
