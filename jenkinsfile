@@ -7,7 +7,7 @@ pipeline {
                 script{
                     sh """
                      echo "Hello Ibrahim thanks for rasing your voice"
-                     docker build -f Dockerfile . -t names:${BUILD_NUMBER}
+                     docker build -f Dockerfile . -t names:
 
                      echo ${BUILD_NUMBER} > ../vars.txt 
 
@@ -24,9 +24,6 @@ pipeline {
                     sh """
 
                      export NUMBER=\$(cat ../vars.txt)
-                     cp Deployment/deploy.yaml Deployment/deploy.yaml.tmp
-                     cat Deployment/deploy.yaml.tmp | envsubst > Deployment/deploy.yaml
-                     rm -f Deployment/deploy.yaml.tmp
                      kubectl apply -f Deployment/deploy.yaml --kubeconfig=${FILE}
                      kubectl apply -f Deployment/service.yaml --kubeconfig=${FILE}
 
