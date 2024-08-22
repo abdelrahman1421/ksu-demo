@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       # - image: engboda/node:${NUMBER}
-      - image: gcr.io/proud-gate-400110/node:${NUMBER} # for demo
+      - image: name:${NUMBER} # for demo
         name: node
         imagePullPolicy: Always
         ports:
