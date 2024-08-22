@@ -24,8 +24,8 @@ pipeline {
                     sh """
 
                      export NUMBER=\$(cat ../vars.txt)
-                     kubectl apply -f Deployment/deploy.yaml --kubeconfig=${FILE}
-                     kubectl apply -f Deployment/service.yaml --kubeconfig=${FILE}
+                     kubectl apply -f Deployment/deploy.yaml --kubeconfig=$FILE
+                     kubectl apply -f Deployment/service.yaml --kubeconfig=$FILE
 
                      """
                     
