@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script{
                     sh """
-                     echo "Hello WOrld"
+                     echo "Hello Ibrahim thanks for rasing your voice"
                      docker build -f Dockerfile . -t names:${BUILD_NUMBER}
 
                      echo ${BUILD_NUMBER} > ../vars.txt 
